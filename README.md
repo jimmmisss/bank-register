@@ -46,29 +46,29 @@ You can then execute your native executable with: `./target/register-1.0.0-SNAPS
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
 
 
-## PASSOS PARA GERAR BUILDAR APP QUARKUS E MANDAR PARA KUBERNATES (GRAAL-VM COMMUNITE EDITION)
+#### PASSOS PARA GERAR BUILDAR APP QUARKUS E MANDAR PARA KUBERNATES (GRAAL-VM COMMUNITE EDITION)
 
-1. Gerando o artefato jar em /target
-   Compilando para JVM:
-   -- mvn clean compile package
-   -- java -jar seuapp-1.0-SNAPSHOT-runner.jar
-   Compilando para versão nativa:
-   -- mvn clean compile package -Pnative
-   -- java -jar seuapp-1.0-SNAPSHOT-runner
-   Compilando artefato para linux:
-   -- mvn package -Pnative -Dquarkus.native.container-build=true
-   -- java -jar seuapp-1.0-SNAPSHOT-runner
+1. Gerando o artefato jar em /target 
+   1. Compilando para JVM:
+      1. mvn clean compile package
+      2. java -jar seuapp-1.0-SNAPSHOT-runner.jar
+   2. Compilando para versão nativa:
+      1. mvn clean compile package -Pnative 
+      2. java -jar seuapp-1.0-SNAPSHOT-runner
+   3. Compilando artefato para linux:
+      1. mvn package -Pnative -Dquarkus.native.container-build=true
+      2. java -jar seuapp-1.0-SNAPSHOT-runner
 
 2. Dockerizando aplicação:
-   -- docker build -f src/main/docker/Dockerfile.native -t quarkus/seuapp .
-   -- docker run -i --rm -p 8080:8080 quarkus/seuapp
+   1. docker build -f src/main/docker/Dockerfile.native -t quarkus/seuapp .
+   2. docker run -i --rm -p 8080:8080 quarkus/seuapp
 
 3. Enviando para docker hub aplicação dockerizada:
-   -- docker tag quarkus/seuapp jimmmisss/seuapp
-   -- docker push jimmmisss/seuapp
+   1. docker tag quarkus/seuapp jimmmisss/seuapp 
+   2. docker push jimmmisss/seuapp
 
 4. K8s:
-   -- kubectl run seuapp --image=jimmmisss/seuapp --port=8080
-   -- kubectl get pods
-   -- kubectl expose deployment seuapp --type=NodePort
-   -- kubectl get services
+   1. kubectl run seuapp --image=jimmmisss/seuapp --port=8080
+   2. kubectl get pods
+   3. kubectl expose deployment seuapp --type=NodePort
+   4. kubectl get services
