@@ -1,0 +1,83 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Magnum Bank PF
+  license:
+    name: MIT
+servers:
+  - url: http://pf.bank.br/v1
+paths:
+  /v1/contatos:
+    post:
+      summary: Cria contato
+      operationId: create
+      tags:
+        - Contato do cliente
+      responses:
+        '201':
+          description: Contato criado
+        default:
+          description: Erro não esperado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /v1/contatos/{personId}:
+    get:
+      summary: Informação de contato
+      operationId: getContactDetailByPerson
+      tags:
+        - contato
+      parameters:
+        - name: personId
+          in: path
+          required: true
+          description: Id da pessoa
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactDetailResponses"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    ContactDetailResponse:
+      required:
+        - id
+        - name
+        - phone
+        - person
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+        phone:
+          type: string
+        person:
+          type: object
+    ContactDetailResponses:
+      type: array
+      items:
+        $ref: "#/components/schemas/ContactDetailResponse"
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
